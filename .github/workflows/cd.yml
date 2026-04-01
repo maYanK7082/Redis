@@ -1,0 +1,49 @@
+# workflow -> Pipeline
+# workflow name
+name: CD Pipeline
+
+# event on which you want this pipeline to be triggered
+on:
+  push:
+    branches: [ "main" ]
+#   pull_request:
+#     branches: [ "main" ]
+
+# jobs
+jobs:
+    # job name
+  deploy:
+
+    # server
+    runs-on: ubuntu-latest
+    # versions you want to test your app on
+    # strategy:
+    #   matrix:
+    #     node-version: [18.x, 20.x, 22.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+    steps:
+        # switch branch - (main)
+    - uses: actions/checkout@v4
+    # - name: Use Node.js ${{ matrix.node-version }}
+    #   uses: actions/setup-node@v4
+    #   with:
+    #     node-version: ${{ matrix.node-version }}
+    #     cache: 'npm'
+    #     # actual command
+    - name : Build Docker Image
+      run: docker build -t nehal524/youtube-backend:latest .
+
+    - name: "Build Successful"
+      run: echo "Docker Image built successfully"
+# docker hub - 2367te346tr3t2ewyquert7yer
+    - name: Docker Login
+      run: echo "${{ secrets.DOCKER_HUB_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_HUB_USERNAME }}" --password-stdin
+
+    - name: Login Successful'
+      run: echo "Logged in to Docker Hub successfully"
+
+    - name: Push Docker Image
+      run: docker push nehal524/youtube-backend:latest
+
+
+  

@@ -1,0 +1,70 @@
+# workflow -> Pipeline
+# workflow name
+name: CI Pipeline
+
+# event on which you want this pipeline to be triggered
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+# jobs
+jobs:
+  build:
+
+    # server
+    runs-on: ubuntu-latest
+
+    # versions you want to test your app o
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x, 22.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+    steps:
+        # switch branch
+    - uses: actions/checkout@v4
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+        # actual commands
+    - name : Build Command
+      run: echo "Building APP" 
+
+
+  test:
+
+    # server
+    runs-on: ubuntu-latest
+
+    # versions you want to test your app on
+    strategy:
+      matrix:
+        node-version: [20.x, 22.x, 24.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+    steps:
+        # switch branch
+    - uses: actions/checkout@v4
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+        # actual command
+
+    - name: Install Dependencies
+      run: npm install
+
+    - name : Test Command
+      run: echo "Running Test Cases"
+
+    - name: Run Tests
+      run: npm test
+
+    # - name : Test cases ran successfully
+    #   run: echo "Testing done successfully!"
