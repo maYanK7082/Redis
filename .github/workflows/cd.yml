@@ -24,7 +24,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Login Successful
-        run: echo "Logged in to Docker Hub successfully"
+        run: echo "Logged in to Docker Hub successfull"
 
       - name: Push Docker Image
         run: docker push mayank7082/youtube-backend:latest
