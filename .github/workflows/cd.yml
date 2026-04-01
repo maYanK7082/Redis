@@ -31,7 +31,7 @@ jobs:
         run: docker push mayank7082/youtube-backend:latest
 
       - name: Build Successful
-        run: echo "Docker Image built successfully"
+        run: echo "Docker Image built successfully and pushed to DockerHub"
 
 
   
