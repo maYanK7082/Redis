@@ -31,7 +31,7 @@ jobs:
     #     cache: 'npm'
     #     # actual command
     - name : Build Docker Image
-      run: docker build -t nehal524/youtube-backend:latest .
+      run: docker build -t mayank7082/youtube-backend:latest .
 
     - name: "Build Successful"
       run: echo "Docker Image built successfully"
@@ -43,7 +43,7 @@ jobs:
       run: echo "Logged in to Docker Hub successfully"
 
     - name: Push Docker Image
-      run: docker push nehal524/youtube-backend:latest
+      run: docker push mayank7082/youtube-backend:latest
 
 
   
